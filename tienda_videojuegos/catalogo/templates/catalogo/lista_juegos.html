@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}  <!-- app de Django que trae filtros para mostrar datos en formato mas legible -->
+{% block title %} Catalogo de Juegos {% endblock %}
+
+{% block content %}
+
+    <h2>Lista de Juegos</h2>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4 mt-3">
+    {% for juego in lista_juegos %}
+        <div class="col">
+        <div class="card h-100">
+            <img src="{% static 'img/portadas/' %}{{ juego.imagen }}"
+                class="card-img-top game-card-img"
+                alt="{{ juego.nombre }}">
+            <div class="card-body">
+            <h5 class="card-title">{{ juego.nombre }}</h5>
+            <p class="card-text">Plataforma: {{ juego.plataforma }}</p>
+            <p class="card-text">Precio: {{ juego.precio|intcomma }} $</p>   <!-- intcomma: funcion de humanize que coloca comas en los precios -->
+            </div>
+        </div>
+        </div>
+    {% endfor %}
+    </div>
+    <!-- Paginación -->
+    <nav aria-label="Paginación" class="mt-4">
+        <ul class="pagination justify-content-center">
+
+            {% if lista_juegos.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page=1">Primera</a>
+            </li>
+
+            <li class="page-item">
+                <a class="page-link" href="?page={{ lista_juegos.previous_page_number }}">Anterior</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Primera</span>
+            </li>
+
+            <li class="page-item disabled">
+                <span class="page-link">Anterior</span>
+            </li>
+            {% endif %}
+
+            {% for num in lista_juegos.paginator.page_range %}
+                {% if lista_juegos.number == num %}
+                    <li class="page-item active">
+                    <span class="page-link">{{ num }}</span>
+                    </li>
+                {% elif num > lista_juegos.number|add:'-3' and num < lista_juegos.number|add:'3' %}
+                    <li class="page-item">
+                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if lista_juegos.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ lista_juegos.next_page_number }}">Siguiente</a>
+                </li>
+
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ lista_juegos.paginator.num_pages }}">Última</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">Siguiente</span>
+                </li>
+
+                <li class="page-item disabled">
+                    <span class="page-link">Última</span>
+                </li>
+            {% endif %}
+
+        </ul>
+    </nav>
+
+{% endblock %}
