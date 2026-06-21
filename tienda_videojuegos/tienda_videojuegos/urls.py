@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home.urls')), # incluir las URLS de la home en la raiz
     path('catalogo/', include('catalogo.urls')), # incluir las URLS de catalogo
+    path('buscador/', include('buscador.urls')), # incluir las URLS del buscador
 ]

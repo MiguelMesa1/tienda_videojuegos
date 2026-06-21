@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}{{ juego.nombre }}{% endblock %}
+
+{% block content %}
+
+<section class="detalle-juego-page">
+    <div class="container py-5">
+        <div class="row g-5 align-items-stretch">
+
+            <!-- Imagen del juego -->
+            <div class="col-12 col-lg-5">
+                <div class="detalle-img-box"
+                    style="--detalle-img-url: url('{% static 'img/portadas/' %}{{ juego.imagen }}');">
+
+                    <img src="{% static 'img/portadas/' %}{{ juego.imagen }}"
+                        class="detalle-img"
+                        alt="Imagen del juego {{ juego.nombre }}">
+
+                </div>
+            </div>
+
+            <!-- Información del juego -->
+            <div class="col-12 col-lg-7">
+                <div class="detalle-info-box">
+
+                    <h1 class="detalle-title">
+                        {{ juego.nombre }}
+                    </h1>
+
+                    <div class="detalle-price-box">
+                        <h2>{{ juego.precio|floatformat:"0u"|intcomma:False }} $</h2>
+                        <small>Impuestos incluidos</small>
+                    </div>
+
+                    <p class="detalle-platform">
+                        <strong>Disponible en:</strong> {{ juego.plataforma }}
+                    </p>
+
+                    <!-- Botones de acción principales -->
+                    <div class="detalle-actions">
+                        <a href="#" class="btn btn-success">
+                            <i class="fas fa-shopping-cart me-2"></i>Comprar
+                        </a>
+
+                        <button class="btn btn-outline-danger">
+                            <i class="fas fa-heart me-2"></i>Agregar a favoritos
+                        </button>
+
+                        <a href="{% url 'lista_juegos' %}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left me-2"></i>Volver al catálogo
+                        </a>
+                    </div>
+
+                    <!-- Detalles del producto -->
+                    <div class="detalle-section">
+                        <h5>Detalles del producto</h5>
+
+                        <p>
+                            <strong>Plataforma:</strong> {{ juego.plataforma }}
+                        </p>
+
+                        {% if juego.descripcion %}
+                            <p class="detalle-description">
+                                {{ juego.descripcion }}
+                            </p>
+                        {% endif %}
+                    </div>
+
+                    <!-- Reseñas -->
+                    <div class="detalle-section mb-0">
+                        <h4>Reseñas</h4>
+                        <p class="detalle-review-empty">
+                            Sección de reseñas de usuarios pendiente de implementación.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}

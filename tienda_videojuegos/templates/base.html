@@ -49,26 +49,37 @@
                     <i class="fa-solid fa-bars"></i>
                 </button>
             </div>
-
+            
+            <!-- Contenido Colapsable -->
             <div class="collapse navbar-collapse" id="gameNavbar">
                 <ul class="navbar-nav mx-auto game-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'home' %}">Inicio</a>
+                        <a class="nav-link {% if request.path == '/' %}active{% endif %}" 
+                         href="{% url 'home' %}">Inicio
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'lista_juegos' %}">Tienda</a>
+                        <a class="nav-link {% if '/catalogo/' in request.path %}active{% endif %}"
+                          href="{% url 'lista_juegos' %}">Catálogo
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Noticias</a>
+                        <a class="nav-link {% if '/noticias/' in request.path %}active{% endif %}" 
+                        href="#">Noticias
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'contacto' %}">Contacto</a>
+                        <a class="nav-link {% if '/contacto/' in request.path %}active{% endif %}"
+                         href="{% url 'contacto' %}">Contacto
+                        </a>
                     </li>
                 </ul>
 
                 <div class="header-actions">
-                    <form class="d-flex game-search" role="search">
-                        <input class="form-control" type="search" placeholder="Buscar..." aria-label="Buscar">
+                    <form class="d-flex game-search" role="search" action="{% url 'buscar_juegos' %}" method="get">
+                        <input class="form-control" type="search" name="q" placeholder="Buscar..." aria-label="Buscar"
+                        value="{{ request.GET.q|default:'' }}"
+                        >
                         <button class="btn btn-search" type="submit">Buscar</button>
                     </form>
 
@@ -91,7 +102,7 @@
     <div class="container game-content">
 
         {% block content %}
-        <!-- Aquí irá el contenido específico de cada página -->
+        <!-- Aquí va el contenido específico de cada página -->
         {% endblock %}
 
     </div>
@@ -113,7 +124,11 @@
                 <h5>Enlaces útiles</h5>
                 <ul class="footer-list">
                     <li><a href="{% url 'home' %}">Inicio</a></li>
-                    <li><a href="#">Tienda</a></li>
+                    <li>
+                        <a class="nav-link {% if '/catalogo/' in request.path %}active{% endif %}"
+                          href="{% url 'lista_juegos' %}">Tienda
+                        </a>
+                    </li>
                     <li><a href="#">Noticias</a></li>
                     <li><a href="{% url 'contacto' %}">Contacto</a></li>
                 </ul>

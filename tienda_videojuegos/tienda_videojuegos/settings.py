@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-f!*3ls0btuk5=fc$x4up*q)2jevi%db$z21*!65+1tt68e5f(h
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'catalogo',
     'home',
     'django.contrib.humanize',
+    'buscador',
 ]
 
 MIDDLEWARE = [

@@ -34,6 +34,25 @@ html[data-bs-theme="light"] body {
   color: #111827;
 }
 
+.game-main {
+  flex: 1;
+}
+
+.game-content {
+  padding: 55px 0;
+  text-align: center;
+}
+
+.game-content > * {
+  max-width: 980px;
+  margin-inline: auto;
+}
+
+.game-content img {
+  max-width: 100%;
+  height: auto;
+}
+
 /* ============================= */
 /* HEADER */
 /* ============================= */
@@ -68,13 +87,48 @@ html[data-bs-theme="light"] body {
 }
 
 .game-nav .nav-link {
+  position: relative;
   margin: 0 6px;
+  padding: 8px 14px;
   color: var(--game-muted);
   font-weight: 600;
+  border-radius: 10px;
+  transition: all .25s ease;
 }
 
 .game-nav .nav-link:hover {
-  color: var(--game-blue);
+  color: var(--game-blue) !important;
+  background: rgba(0, 217, 255, .08);
+}
+
+.game-nav .nav-link.active {
+  color: var(--game-blue) !important;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 217, 255, .18),
+    rgba(185, 54, 255, .18)
+  );
+  border: 1px solid rgba(0, 217, 255, .45);
+  box-shadow:
+    0 0 12px rgba(0, 217, 255, .28),
+    inset 0 0 12px rgba(185, 54, 255, .10);
+}
+
+.game-nav .nav-link.active::after {
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 4px;
+  height: 2px;
+  border-radius: 20px;
+  background: linear-gradient(
+    90deg,
+    var(--game-blue),
+    var(--game-purple),
+    var(--game-pink)
+  );
+  box-shadow: 0 0 10px rgba(0, 217, 255, .7);
 }
 
 .header-actions,
@@ -89,7 +143,7 @@ html[data-bs-theme="light"] body {
 }
 
 /* ============================= */
-/* BUSCADOR Y BOTONES */
+/* BUSCADOR Y BOTONES HEADER */
 /* ============================= */
 
 .game-search {
@@ -136,56 +190,711 @@ html[data-bs-theme="light"] body {
 }
 
 /* ============================= */
-/* CONTENIDO */
+/* CATÁLOGO */
 /* ============================= */
 
-.game-main {
-  flex: 1;
+.catalogo-juegos {
+  width: 100%;
 }
 
-.game-content {
-  padding: 55px 0;
-  text-align: center;
-}
-
-.game-content > * {
-  max-width: 980px;
-  margin-inline: auto;
-}
-
-.game-content img {
-  max-width: 100%;
-  height: auto;
+.catalogo-titulo {
+  margin-bottom: 18px;
+  color: #fff;
+  font-size: clamp(2rem, 4vw, 3.3rem);
+  font-weight: 950;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  text-shadow:
+    0 0 16px rgba(0, 217, 255, .45),
+    0 0 26px rgba(185, 54, 255, .28);
 }
 
 /* ============================= */
 /* CARDS DE JUEGOS */
 /* ============================= */
 
+.game-content .row .col {
+  display: flex;
+}
+
+.game-card-link,
+.game-card-link:hover,
+.game-card-link:focus {
+  display: block;
+  height: 100%;
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
+.game-card-link *,
+.game-card-link:hover * {
+  text-decoration: none !important;
+}
+
 .card {
+  width: 100%;
+  position: relative;
   overflow: hidden;
-  background: rgba(16, 19, 28, .95);
-  border: 1px solid rgba(255, 255, 255, .12);
+  background:
+    linear-gradient(180deg, rgba(16, 19, 28, .98), rgba(5, 6, 10, .98));
+  border: 1px solid rgba(0, 217, 255, .22);
+  border-radius: 18px;
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, .35),
+    0 0 18px rgba(0, 217, 255, .08);
+  transition: all .28s ease;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: 18px;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 217, 255, .75),
+    rgba(185, 54, 255, .45),
+    rgba(255, 61, 242, .55)
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: .55;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(0, 217, 255, .65);
+  box-shadow:
+    0 18px 38px rgba(0, 0, 0, .48),
+    0 0 24px rgba(0, 217, 255, .28),
+    0 0 34px rgba(185, 54, 255, .18);
 }
 
 .game-content .card .game-card-img,
 .card .card-img-top.game-card-img {
   width: 100% !important;
-  height: 190px !important;
+  height: 210px !important;
   object-fit: contain !important;
   object-position: center center !important;
   display: block !important;
-  background: linear-gradient(180deg, #05060a 0%, #10131c 100%) !important;
-  padding: 8px !important;
+  padding: 14px !important;
+  background:
+    radial-gradient(circle at center, rgba(0, 217, 255, .16), transparent 45%),
+    linear-gradient(180deg, #05060a 0%, #10131c 100%) !important;
+  border-bottom: 1px solid rgba(0, 217, 255, .18);
+  transition: all .28s ease;
+}
+
+.card:hover .game-card-img {
+  transform: scale(1.04);
+  filter: drop-shadow(0 0 12px rgba(0, 217, 255, .35));
 }
 
 .card-body {
   display: flex;
   flex-direction: column;
+  gap: 8px;
+  padding: 18px;
+  text-align: left;
 }
 
 .card-title {
-  min-height: 60px;
+  min-height: auto;
+  margin-bottom: 8px;
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 900;
+  line-height: 1.25;
+  text-transform: uppercase;
+  text-shadow:
+    0 0 10px rgba(0, 217, 255, .45),
+    0 0 18px rgba(185, 54, 255, .25);
+}
+
+.card-text,
+.card-text.precio {
+  margin-bottom: 4px;
+  color: var(--game-muted);
+  font-size: .95rem;
+  font-weight: 600;
+  line-height: 1.45;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.card-text strong,
+.card-text.precio strong {
+  color: #fff;
+  font-weight: 900;
+}
+
+/* Botón entrar al producto */
+
+.game-card-cta {
+  position: relative;
+  width: 100%;
+  min-height: 46px;
+  margin-top: auto;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: #05060a;
+  background: linear-gradient(135deg, var(--game-blue), #37ffb5);
+  border: 1px solid rgba(0, 217, 255, .75);
+  border-radius: 14px;
+  font-size: .9rem;
+  font-weight: 950;
+  letter-spacing: .3px;
+  text-transform: uppercase;
+  box-shadow:
+    0 0 16px rgba(0, 217, 255, .30),
+    inset 0 0 12px rgba(255, 255, 255, .18);
+  overflow: hidden;
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    border-color .25s ease;
+}
+
+.game-card-cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--game-pink), var(--game-purple));
+  opacity: 0;
+  transition: opacity .25s ease;
+  z-index: 0;
+}
+
+.game-card-cta span,
+.game-card-cta i {
+  position: relative;
+  z-index: 1;
+}
+
+.game-card-cta i {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: rgba(5, 6, 10, .85);
+  border-radius: 50%;
+  font-size: .8rem;
+  transition: transform .25s ease;
+}
+
+.game-card:hover .game-card-cta {
+  color: #fff;
+  border-color: var(--game-pink);
+  transform: translateY(-3px);
+  box-shadow:
+    0 0 18px rgba(255, 61, 242, .45),
+    0 0 30px rgba(185, 54, 255, .28);
+}
+
+.game-card:hover .game-card-cta::before {
+  opacity: 1;
+}
+
+.game-card:hover .game-card-cta i {
+  transform: translateX(4px);
+  color: var(--game-pink);
+  background: #fff;
+}
+
+/* ============================= */
+/* DETALLE DE PRODUCTO */
+/* ============================= */
+
+.detalle-juego-page {
+  position: relative;
+  min-height: calc(100vh - 120px);
+  padding: 20px 0;
+  overflow: hidden;
+}
+
+.detalle-bg-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 18% 20%, rgba(0, 217, 255, .18), transparent 34%),
+    radial-gradient(circle at 82% 10%, rgba(255, 61, 242, .16), transparent 32%),
+    radial-gradient(circle at 50% 100%, rgba(185, 54, 255, .12), transparent 42%);
+  z-index: 0;
+}
+
+.detalle-juego-page .container {
+  position: relative;
+  z-index: 1;
+}
+
+.detalle-product-card {
+  position: relative;
+  padding: 34px;
+  background:
+    linear-gradient(135deg, rgba(16, 19, 28, .92), rgba(5, 6, 10, .96));
+  border: 1px solid rgba(0, 217, 255, .24);
+  border-radius: 28px;
+  box-shadow:
+    0 28px 70px rgba(0, 0, 0, .45),
+    0 0 28px rgba(0, 217, 255, .10),
+    inset 0 0 20px rgba(255, 255, 255, .03);
+  overflow: hidden;
+}
+
+.detalle-product-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: 28px;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 217, 255, .85),
+    rgba(185, 54, 255, .45),
+    rgba(255, 61, 242, .75)
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: .65;
+}
+
+.detalle-img-box {
+  position: relative;
+  width: 100%;
+  height: 520px !important;
+  min-height: 520px !important;
+  padding: 0 !important;
+  display: block !important;
+  overflow: hidden !important;
+  background: #05060a !important;
+  border: 2px solid var(--game-blue) !important;
+  border-radius: 24px !important;
+  box-shadow:
+    0 0 18px rgba(0, 217, 255, .22),
+    0 20px 45px rgba(0, 0, 0, .38) !important;
+  transition:
+    border-color .28s ease,
+    box-shadow .28s ease,
+    transform .28s ease;
+}
+
+.detalle-img-box::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border: 1px solid rgba(255, 255, 255, .14);
+  border-radius: 22px;
+  pointer-events: none;
+}
+
+.detalle-img-box::after,
+.detalle-img-shine {
+  display: none !important;
+}
+
+.detalle-img {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  object-fit: fill !important;
+  object-position: center center !important;
+  display: block !important;
+  border-radius: 24px;
+  transform: scale(1) !important;
+  transition:
+    transform .35s ease,
+    filter .35s ease !important;
+}
+
+.detalle-img-box:hover {
+  border-color: var(--game-pink) !important;
+  transform: translateY(-4px);
+  box-shadow:
+    0 0 18px rgba(255, 61, 242, .45),
+    0 0 34px rgba(185, 54, 255, .30),
+    0 24px 55px rgba(0, 0, 0, .50) !important;
+}
+
+.detalle-img-box:hover .detalle-img {
+  transform: scale(1.08) !important;
+  filter:
+    brightness(1.08)
+    contrast(1.08)
+    saturate(1.12)
+    drop-shadow(0 0 18px rgba(0, 217, 255, .30)) !important;
+}
+
+.detalle-badge {
+  display: none !important;
+}
+
+.detalle-info-box {
+  text-align: left;
+  color: var(--game-text);
+}
+
+.detalle-category {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  padding: 8px 13px;
+  color: var(--game-blue);
+  background: rgba(0, 217, 255, .10);
+  border: 1px solid rgba(0, 217, 255, .28);
+  border-radius: 999px;
+  font-size: .84rem;
+  font-weight: 800;
+}
+
+.detalle-title {
+  margin-bottom: 18px;
+  color: #fff;
+  font-size: clamp(2.2rem, 5vw, 4.4rem);
+  font-weight: 950;
+  line-height: .95;
+  text-transform: uppercase;
+  letter-spacing: -1.5px;
+  text-shadow:
+    0 0 18px rgba(0, 217, 255, .45),
+    0 0 30px rgba(185, 54, 255, .24);
+}
+
+.detalle-price-box {
+  width: 100%;
+  min-width: auto;
+  margin-bottom: 22px;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.detalle-price-label {
+  display: none !important;
+}
+
+.detalle-price-box h2 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(2rem, 4vw, 3.1rem);
+  font-weight: 950;
+  line-height: 1;
+  text-shadow:
+    0 0 14px rgba(0, 217, 255, .45),
+    0 0 24px rgba(185, 54, 255, .25);
+}
+
+.detalle-price-box small {
+  display: block;
+  margin-top: 8px;
+  color: var(--game-muted);
+  font-size: .9rem;
+  font-weight: 650;
+}
+
+.detalle-platform,
+.detalle-platform-box {
+  margin-bottom: 20px;
+  color: #fff;
+  font-weight: 600;
+}
+
+.detalle-platform strong,
+.detalle-platform-title {
+  color: #fff;
+  font-weight: 850;
+}
+
+.detalle-platform-title {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.detalle-platform-title i {
+  margin-right: 6px;
+  color: var(--game-pink);
+}
+
+.detalle-platform-chip {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  padding: 10px 15px;
+  color: #fff;
+  background: rgba(255, 255, 255, .06);
+  border: 1px solid rgba(255, 255, 255, .13);
+  border-radius: 14px;
+  font-weight: 750;
+}
+
+.detalle-benefits {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 11px;
+  margin: 22px 0;
+}
+
+.detalle-benefit {
+  padding: 13px 12px;
+  color: var(--game-muted);
+  background: rgba(255, 255, 255, .045);
+  border: 1px solid rgba(255, 255, 255, .10);
+  border-radius: 14px;
+  font-size: .88rem;
+  font-weight: 700;
+}
+
+.detalle-benefit i {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--game-blue);
+  font-size: 1rem;
+}
+
+/* ============================= */
+/* BOTONES DETALLE */
+/* ============================= */
+
+.detalle-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 24px 0 28px;
+}
+
+.detalle-actions .btn {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 18px;
+  border-radius: 14px;
+  font-weight: 850;
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    background .25s ease,
+    color .25s ease,
+    border-color .25s ease;
+}
+
+.detalle-btn-buy,
+.detalle-actions .btn-success {
+  color: #05060a !important;
+  background: linear-gradient(135deg, var(--game-blue), #37ffb5) !important;
+  border: 1px solid rgba(0, 217, 255, .75) !important;
+  box-shadow: 0 0 18px rgba(0, 217, 255, .30);
+}
+
+.detalle-btn-buy:hover,
+.detalle-actions .btn-success:hover {
+  color: #fff !important;
+  background: linear-gradient(135deg, var(--game-purple), var(--game-pink)) !important;
+  border-color: var(--game-pink) !important;
+  transform: translateY(-3px);
+  box-shadow:
+    0 0 18px rgba(255, 61, 242, .45),
+    0 0 32px rgba(185, 54, 255, .35),
+    0 14px 30px rgba(0, 0, 0, .35) !important;
+}
+
+.detalle-btn-favorite,
+.detalle-actions .btn-outline-danger {
+  position: relative;
+  overflow: hidden;
+  color: var(--game-pink) !important;
+  background: rgba(255, 61, 242, .08) !important;
+  border: 1px solid rgba(255, 61, 242, .55) !important;
+}
+
+.detalle-btn-favorite::before,
+.detalle-actions .btn-outline-danger::before {
+  display: none !important;
+}
+
+.detalle-btn-favorite:hover,
+.detalle-actions .btn-outline-danger:hover {
+  color: #fff !important;
+  background: linear-gradient(135deg, var(--game-pink), var(--game-purple)) !important;
+  border-color: var(--game-pink) !important;
+  transform: translateY(-3px);
+  box-shadow:
+    0 0 18px rgba(255, 61, 242, .48),
+    0 0 32px rgba(185, 54, 255, .32),
+    0 14px 28px rgba(0, 0, 0, .35) !important;
+  text-shadow: 0 0 8px rgba(255, 255, 255, .35);
+}
+
+.detalle-btn-favorite i,
+.detalle-actions .btn-outline-danger i {
+  transition: transform .25s ease, color .25s ease;
+}
+
+.detalle-btn-favorite:hover i,
+.detalle-actions .btn-outline-danger:hover i {
+  color: #fff !important;
+  transform: scale(1.2);
+  animation: favoritePulse .45s ease;
+}
+
+.detalle-btn-back,
+.detalle-actions .btn-secondary {
+  color: #fff !important;
+  background: rgba(255, 255, 255, .10) !important;
+  border: 1px solid rgba(255, 255, 255, .16) !important;
+}
+
+.detalle-btn-back:hover,
+.detalle-actions .btn-secondary:hover {
+  background: rgba(255, 255, 255, .16) !important;
+  transform: translateY(-3px);
+}
+
+/* ============================= */
+/* SECCIONES DETALLE */
+/* ============================= */
+
+.detalle-section {
+  margin-top: 22px;
+  padding: 22px;
+  background: rgba(255, 255, 255, .045);
+  border: 1px solid rgba(255, 255, 255, .10);
+  border-radius: 20px;
+}
+
+.detalle-section h5,
+.detalle-section h4 {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 15px;
+  color: #fff;
+  font-weight: 900;
+}
+
+.detalle-section h5 i,
+.detalle-section h4 i {
+  color: var(--game-blue);
+}
+
+.detalle-info-list {
+  display: grid;
+  gap: 10px;
+}
+
+.detalle-info-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 11px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, .08);
+}
+
+.detalle-info-item:last-child {
+  border-bottom: 0;
+}
+
+.detalle-info-item span {
+  color: var(--game-muted);
+  font-weight: 650;
+}
+
+.detalle-info-item strong {
+  color: #fff;
+  text-align: right;
+}
+
+.detalle-description {
+  margin: 16px 0 0;
+  color: var(--game-muted);
+  line-height: 1.7;
+  font-weight: 500;
+}
+
+.detalle-review-box {
+  padding: 16px;
+  background: rgba(0, 0, 0, .18);
+  border-radius: 16px;
+}
+
+.detalle-stars {
+  margin-bottom: 8px;
+  color: #ffd84d;
+  letter-spacing: 2px;
+}
+
+.detalle-review-empty {
+  margin: 0;
+  color: var(--game-muted);
+}
+
+/* ============================= */
+/* PAGINACIÓN */
+/* ============================= */
+
+.pagination {
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pagination .page-item .page-link {
+  background: rgba(16, 19, 28, .95);
+  color: var(--game-blue);
+  border: 1px solid rgba(0, 217, 255, .45);
+  border-radius: 10px;
+  font-weight: 700;
+  padding: 10px 14px;
+  box-shadow: 0 0 14px rgba(0, 217, 255, .12);
+  transition: all .25s ease;
+}
+
+.pagination .page-item .page-link:hover {
+  background: linear-gradient(135deg, var(--game-blue), var(--game-purple));
+  color: var(--game-black);
+  border-color: var(--game-blue);
+  box-shadow: 0 0 18px rgba(0, 217, 255, .45);
+  transform: translateY(-2px);
+}
+
+.pagination .page-item.active .page-link {
+  background: linear-gradient(135deg, var(--game-pink), var(--game-purple));
+  color: #fff;
+  border-color: var(--game-pink);
+  box-shadow:
+    0 0 12px rgba(255, 61, 242, .55),
+    0 0 24px rgba(185, 54, 255, .35);
+}
+
+.pagination .page-item.disabled .page-link {
+  background: rgba(255, 255, 255, .04);
+  color: rgba(182, 191, 211, .45);
+  border-color: rgba(255, 255, 255, .10);
+  box-shadow: none;
+}
+
+.pagination .page-link:focus {
+  box-shadow: 0 0 0 .2rem rgba(0, 217, 255, .20);
 }
 
 /* ============================= */
@@ -246,6 +955,77 @@ html[data-bs-theme="light"] body {
 }
 
 /* ============================= */
+/* MODO CLARO */
+/* ============================= */
+
+html[data-bs-theme="light"] .catalogo-titulo,
+html[data-bs-theme="light"] .card-title,
+html[data-bs-theme="light"] .card-text strong,
+html[data-bs-theme="light"] .card-text.precio strong,
+html[data-bs-theme="light"] .detalle-title,
+html[data-bs-theme="light"] .detalle-price-box h2,
+html[data-bs-theme="light"] .detalle-section h5,
+html[data-bs-theme="light"] .detalle-section h4,
+html[data-bs-theme="light"] .detalle-info-item strong {
+  color: #111827;
+  text-shadow: none;
+}
+
+html[data-bs-theme="light"] .card {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .96), rgba(238, 241, 248, .96));
+  border-color: rgba(185, 54, 255, .28);
+}
+
+html[data-bs-theme="light"] .card-text,
+html[data-bs-theme="light"] .card-text.precio,
+html[data-bs-theme="light"] .detalle-description,
+html[data-bs-theme="light"] .detalle-info-item span,
+html[data-bs-theme="light"] .detalle-review-empty,
+html[data-bs-theme="light"] .detalle-price-box small {
+  color: #4b5563;
+}
+
+html[data-bs-theme="light"] .detalle-product-card {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, .94), rgba(238, 241, 248, .96));
+  border-color: rgba(185, 54, 255, .20);
+}
+
+html[data-bs-theme="light"] .detalle-info-box,
+html[data-bs-theme="light"] .detalle-section,
+html[data-bs-theme="light"] .detalle-benefit,
+html[data-bs-theme="light"] .detalle-platform-chip,
+html[data-bs-theme="light"] .game-card-cta {
+  color: #111827;
+}
+
+html[data-bs-theme="light"] .detalle-section,
+html[data-bs-theme="light"] .detalle-benefit,
+html[data-bs-theme="light"] .detalle-platform-chip {
+  background: rgba(255, 255, 255, .72);
+  border-color: rgba(17, 24, 39, .10);
+}
+
+/* ============================= */
+/* ANIMACIONES */
+/* ============================= */
+
+@keyframes favoritePulse {
+  0% {
+    transform: scale(1);
+  }
+
+  45% {
+    transform: scale(1.3);
+  }
+
+  100% {
+    transform: scale(1.2);
+  }
+}
+
+/* ============================= */
 /* RESPONSIVE */
 /* ============================= */
 
@@ -284,6 +1064,20 @@ html[data-bs-theme="light"] body {
     border-bottom: 1px solid rgba(255, 255, 255, .08);
   }
 
+  .game-nav .nav-link.active {
+    background: linear-gradient(
+      135deg,
+      rgba(0, 217, 255, .16),
+      rgba(255, 61, 242, .14)
+    );
+  }
+
+  .game-nav .nav-link.active::after {
+    left: 25%;
+    right: 25%;
+    bottom: 2px;
+  }
+
   .header-actions {
     flex-direction: column;
     width: 100%;
@@ -292,6 +1086,40 @@ html[data-bs-theme="light"] body {
   .game-search,
   .game-search .form-control {
     width: 100%;
+  }
+
+  .detalle-product-card {
+    padding: 24px;
+  }
+
+  .detalle-info-box {
+    text-align: center;
+  }
+
+  .detalle-price-box {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .detalle-benefits {
+    grid-template-columns: 1fr;
+  }
+
+  .detalle-actions {
+    justify-content: center;
+  }
+
+  .detalle-actions .btn {
+    width: 100%;
+  }
+
+  .detalle-info-item {
+    text-align: left;
+  }
+
+  .detalle-img-box {
+    height: 460px !important;
+    min-height: 460px !important;
   }
 }
 
@@ -318,235 +1146,10 @@ html[data-bs-theme="light"] body {
     width: 100%;
   }
 
-  .game-content .card .game-card-img,
-  .card .card-img-top.game-card-img {
-    height: 160px !important;
-  }
-}
-
-/* ============================= */
-/* PAGINACIÓN GAMER */
-/* ============================= */
-
-.pagination {
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.pagination .page-item .page-link {
-  background: rgba(16, 19, 28, .95);
-  color: var(--game-blue);
-  border: 1px solid rgba(0, 217, 255, .45);
-  border-radius: 10px;
-  font-weight: 700;
-  padding: 10px 14px;
-  box-shadow: 0 0 14px rgba(0, 217, 255, .12);
-  transition: all .25s ease;
-}
-
-.pagination .page-item .page-link:hover {
-  background: linear-gradient(135deg, var(--game-blue), var(--game-purple));
-  color: var(--game-black);
-  border-color: var(--game-blue);
-  box-shadow: 0 0 18px rgba(0, 217, 255, .45);
-  transform: translateY(-2px);
-}
-
-/* Página activa */
-.pagination .page-item.active .page-link {
-  background: linear-gradient(135deg, var(--game-pink), var(--game-purple));
-  color: #fff;
-  border-color: var(--game-pink);
-  box-shadow:
-    0 0 12px rgba(255, 61, 242, .55),
-    0 0 24px rgba(185, 54, 255, .35);
-}
-
-/* Botones desactivados */
-.pagination .page-item.disabled .page-link {
-  background: rgba(255, 255, 255, .04);
-  color: rgba(182, 191, 211, .45);
-  border-color: rgba(255, 255, 255, .10);
-  box-shadow: none;
-}
-
-/* Quitar borde raro de Bootstrap */
-.pagination .page-link:focus {
-  box-shadow: 0 0 0 .2rem rgba(0, 217, 255, .20);
-}
-
-/* Responsive */
-@media screen and (max-width: 576px) {
-  .pagination {
-    gap: 6px;
+  .catalogo-titulo {
+    font-size: 2.1rem;
   }
 
-  .pagination .page-item .page-link {
-    padding: 8px 11px;
-    font-size: .85rem;
-  }
-}
-
-
-/* ============================= */
-/* CARDS DE JUEGOS - ESTILO GAMER */
-/* ============================= */
-
-.row .col {
-  display: flex;
-}
-
-.card {
-  width: 100%;
-  position: relative;
-  overflow: hidden;
-  background:
-    linear-gradient(180deg, rgba(16, 19, 28, .98), rgba(5, 6, 10, .98));
-  border: 1px solid rgba(0, 217, 255, .22);
-  border-radius: 18px;
-  box-shadow:
-    0 12px 30px rgba(0, 0, 0, .35),
-    0 0 18px rgba(0, 217, 255, .08);
-  transition: all .28s ease;
-}
-
-/* Borde neón interno */
-.card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 18px;
-  padding: 1px;
-  background: linear-gradient(
-    135deg,
-    rgba(0, 217, 255, .75),
-    rgba(185, 54, 255, .45),
-    rgba(255, 61, 242, .55)
-  );
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-  opacity: .55;
-}
-
-/* Efecto hover */
-.card:hover {
-  transform: translateY(-6px);
-  border-color: rgba(0, 217, 255, .65);
-  box-shadow:
-    0 18px 38px rgba(0, 0, 0, .48),
-    0 0 24px rgba(0, 217, 255, .28),
-    0 0 34px rgba(185, 54, 255, .18);
-}
-
-/* Imagen del juego */
-.game-content .card .game-card-img,
-.card .card-img-top.game-card-img {
-  width: 100% !important;
-  height: 210px !important;
-  object-fit: contain !important;
-  object-position: center center !important;
-  display: block !important;
-  padding: 14px !important;
-  background:
-    radial-gradient(circle at center, rgba(0, 217, 255, .16), transparent 45%),
-    linear-gradient(180deg, #05060a 0%, #10131c 100%) !important;
-  border-bottom: 1px solid rgba(0, 217, 255, .18);
-  transition: all .28s ease;
-}
-
-.card:hover .game-card-img {
-  transform: scale(1.04);
-  filter: drop-shadow(0 0 12px rgba(0, 217, 255, .35));
-}
-
-/* Cuerpo de la card */
-.card-body {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 18px;
-  text-align: left;
-}
-
-/* Título del juego */
-.card-title {
-  min-height: auto;
-  margin-bottom: 6px;
-  color: #fff;
-  font-size: 1.05rem;
-  font-weight: 900;
-  line-height: 1.25;
-  text-transform: uppercase;
-  text-shadow:
-    0 0 10px rgba(0, 217, 255, .45),
-    0 0 18px rgba(185, 54, 255, .25);
-}
-
-/* Texto de plataforma y precio */
-.card-text {
-  margin-bottom: 4px;
-  color: var(--game-muted);
-  font-size: .95rem;
-  font-weight: 600;
-}
-
-/* Precio más llamativo */
-.card-text:last-child {
-  width: 100%;
-  margin-top: 10px;
-  padding: 11px 14px;
-  color: #fff;
-  background:
-    linear-gradient(135deg, rgba(0, 217, 255, .14), rgba(185, 54, 255, .12));
-  border: 1px solid rgba(0, 217, 255, .35);
-  border-left: 4px solid var(--game-blue);
-  border-radius: 12px;
-  font-size: 1rem;
-  font-weight: 900;
-  letter-spacing: .3px;
-  box-shadow:
-    inset 0 0 12px rgba(0, 217, 255, .08),
-    0 0 14px rgba(0, 217, 255, .10);
-}
-
-/* Hover del precio */
-.card:hover .card-text:last-child {
-  border-color: rgba(255, 61, 242, .55);
-  border-left-color: var(--game-pink);
-  box-shadow:
-    inset 0 0 14px rgba(255, 61, 242, .10),
-    0 0 18px rgba(255, 61, 242, .18);
-}
-
-/* Modo claro */
-html[data-bs-theme="light"] .card-text:last-child {
-  color: #111827;
-  background:
-    linear-gradient(135deg, rgba(0, 217, 255, .14), rgba(185, 54, 255, .10));
-}
-
-/* Mejor ajuste en modo claro */
-html[data-bs-theme="light"] .card {
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, .96), rgba(238, 241, 248, .96));
-  border-color: rgba(185, 54, 255, .28);
-}
-
-html[data-bs-theme="light"] .card-title {
-  color: #111827;
-  text-shadow: none;
-}
-
-html[data-bs-theme="light"] .card-text {
-  color: #4b5563;
-}
-
-/* Responsive */
-@media screen and (max-width: 576px) {
   .game-content .card .game-card-img,
   .card .card-img-top.game-card-img {
     height: 175px !important;
@@ -560,7 +1163,85 @@ html[data-bs-theme="light"] .card-text {
     font-size: .95rem;
   }
 
-  .card-text {
+  .card-text,
+  .card-text.precio {
     font-size: .88rem;
+  }
+
+  .game-card-cta {
+    min-height: 42px;
+    padding: 11px 14px;
+    font-size: .78rem;
+    border-radius: 12px;
+  }
+
+  .game-card-cta i {
+    width: 25px;
+    height: 25px;
+    font-size: .72rem;
+  }
+
+  .pagination {
+    gap: 6px;
+  }
+
+  .pagination .page-item .page-link {
+    padding: 8px 11px;
+    font-size: .85rem;
+  }
+
+  .detalle-juego-page {
+    padding: 5px 0;
+  }
+
+  .detalle-product-card {
+    padding: 16px;
+    border-radius: 22px;
+  }
+
+  .detalle-img-box {
+    height: 390px !important;
+    min-height: 390px !important;
+    border-radius: 20px !important;
+  }
+
+  .detalle-img-box::before {
+    border-radius: 18px;
+  }
+
+  .detalle-img {
+    border-radius: 20px;
+  }
+
+  .detalle-img-box:hover .detalle-img {
+    transform: scale(1.04) !important;
+  }
+
+  .detalle-title {
+    font-size: 2.3rem;
+    letter-spacing: -1px;
+  }
+
+  .detalle-price-box h2 {
+    font-size: 2.1rem;
+    text-align: center;
+  }
+
+  .detalle-price-box small {
+    text-align: center;
+  }
+
+  .detalle-section {
+    padding: 18px;
+  }
+
+  .detalle-info-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .detalle-info-item strong {
+    text-align: left;
   }
 }

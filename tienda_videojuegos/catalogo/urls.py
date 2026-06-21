@@ -3,5 +3,6 @@ from . import views
 
 urlpatterns = [
  #ruta contacto: Llama a la vista de contacto
-    path('', views.lista_juegos, name='lista_juegos')
+    path('', views.lista_juegos, name='lista_juegos'),
+    path('<int:pk>/', views.detalle_juego, name='detalle_juego')
 ]
