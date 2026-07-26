@@ -1,0 +1,216 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}Tu carrito{% endblock %}
+
+{% block content %}
+
+<section class="detalle-juego-page carrito-page">
+
+
+    <div class="container py-4 py-lg-5">
+
+        <div class="detalle-product-card">
+
+            <header class="mb-4">
+
+                <span class="detalle-category">
+                    <i class="fas fa-shopping-cart"></i>
+                    Mi compra
+                </span>
+
+                <h1 class="catalogo-titulo text-start mb-0">
+                    Tu carrito
+                </h1>
+
+            </header>
+
+            {% if items %}
+
+                <div class="detalle-section carrito-table-wrap">
+
+                    <table class="carrito-table">
+
+                        <thead>
+                            <tr>
+                                <th scope="col">Juego</th>
+                                <th scope="col">Plataforma</th>
+                                <th scope="col">Precio</th>
+                                <th scope="col">Cantidad</th>
+                                <th scope="col">Subtotal</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            {% for item in items %}
+
+                                <tr class="carrito-row">
+
+                                    <td
+                                        data-label="Juego"
+                                        class="carrito-product-cell"
+                                    >
+                                        <div class="carrito-product">
+
+                                            <a
+                                                href="{% url 'catalogo:detalle_juego' pk=item.juego.pk %}"
+                                                class="carrito-thumb-link"
+                                                aria-label="Ver detalles de {{ item.juego.nombre }}"
+                                            >
+                                                <img
+                                                    src="{% static 'img/portadas/' %}{{ item.juego.imagen }}"
+                                                    alt="Portada de {{ item.juego.nombre }}"
+                                                    class="carrito-thumb"
+                                                    loading="lazy"
+                                                    decoding="async"
+                                                >
+                                            </a>
+
+                                            <h2 class="card-title carrito-game-title">
+
+                                                <a
+                                                    href="{% url 'catalogo:detalle_juego' pk=item.juego.pk %}"
+                                                    class="carrito-game-link"
+                                                >
+                                                    {{ item.juego.nombre }}
+                                                </a>
+
+                                            </h2>
+
+                                        </div>
+                                    </td>
+
+                                    <td data-label="Plataforma">
+                                        <span class="detalle-platform-chip">
+                                            {{ item.juego.plataforma }}
+                                        </span>
+                                    </td>
+
+                                    <td data-label="Precio">
+                                        {{ item.juego.precio|floatformat:"0"|intcomma }} $
+                                    </td>
+
+                                    <td data-label="Cantidad">
+                                        <span class="detalle-platform-chip carrito-quantity">
+                                            {{ item.cantidad }}
+                                        </span>
+                                    </td>
+
+                                    <td
+                                        data-label="Subtotal"
+                                        class="carrito-subtotal"
+                                    >
+                                        {{ item.subtotal|floatformat:"0"|intcomma }} $
+                                    </td>
+
+                                    <td data-label="Acciones">
+
+                                        <a
+                                            href="{% url 'carrito:eliminar' item.juego.pk %}"
+                                            class="btn detalle-btn-favorite carrito-icon-btn"
+                                            aria-label="Eliminar {{ item.juego.nombre }} del carrito"
+                                            title="Eliminar del carrito"
+                                        >
+                                            <i
+                                                class="fas fa-trash"
+                                                aria-hidden="true"
+                                            ></i>
+                                        </a>
+
+                                    </td>
+
+                                </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+                <div class="detalle-section carrito-summary">
+
+                    <div class="detalle-price-box carrito-total-box mb-0">
+
+                        <small>Total del carrito</small>
+
+                        <h2>
+                            {{ total|floatformat:"0"|intcomma }} $
+                        </h2>
+
+                    </div>
+
+                    <div class="detalle-actions carrito-actions mb-0">
+
+                        <a
+                            href="{% url 'carrito:limpiar' %}"
+                            class="btn detalle-btn-favorite"
+                        >
+                            <i class="fas fa-trash-alt me-2"></i>
+                            Vaciar carrito
+                        </a>
+
+                        <a
+                            href="#"
+                            class="btn detalle-btn-buy"
+                        >
+                            <i class="fas fa-credit-card me-2"></i>
+                            Finalizar compra
+                        </a>
+
+                        <a
+                            href="{% url 'catalogo:lista_juegos' %}"
+                            class="btn detalle-btn-back"
+                        >
+                            <i class="fas fa-arrow-left me-2"></i>
+                            Seguir comprando
+                        </a>
+
+                    </div>
+
+                </div>
+
+            {% else %}
+
+                <div class="detalle-section carrito-empty">
+
+                    <i
+                        class="fas fa-shopping-cart carrito-empty-icon"
+                        aria-hidden="true"
+                    ></i>
+
+                    <h2 class="card-title carrito-empty-title">
+                        Tu carrito está vacío
+                    </h2>
+
+                    <p class="detalle-review-empty">
+                        Todavía no has agregado ningún juego.
+                    </p>
+
+                    <div class="detalle-actions carrito-empty-actions mb-0">
+
+                        <a
+                            href="{% url 'catalogo:lista_juegos' %}"
+                            class="btn detalle-btn-buy"
+                        >
+                            <i class="fas fa-gamepad me-2"></i>
+                            Explorar catálogo
+                        </a>
+
+                    </div>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

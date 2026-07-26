@@ -41,15 +41,23 @@
 
                     <!-- Botones de acción principales -->
                     <div class="detalle-actions">
-                        <a href="#" class="btn btn-success">
-                            <i class="fas fa-shopping-cart me-2"></i>Comprar
-                        </a>
+                        <form
+                            method="post"
+                            action="{% url 'carrito:agregar' juego.pk %}"
+                        >
+                            {% csrf_token %}
+
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-shopping-cart me-2"></i>
+                                Añadir al carrito
+                            </button>
+                        </form>
 
                         <button class="btn btn-outline-danger">
                             <i class="fas fa-heart me-2"></i>Agregar a favoritos
                         </button>
 
-                        <a href="{% url 'lista_juegos' %}" class="btn btn-secondary">
+                        <a href ="{% url 'catalogo:lista_juegos' %}" class="btn btn-secondary">
                             <i class="fas fa-arrow-left me-2"></i>Volver al catálogo
                         </a>
                     </div>

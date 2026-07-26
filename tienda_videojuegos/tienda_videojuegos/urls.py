@@ -23,4 +23,5 @@ urlpatterns = [
     path('catalogo/', include('catalogo.urls')), # incluir las URLS de catalogo
     path('buscador/', include('buscador.urls')), # incluir las URLS del buscador
     path('usuarios/', include('usuarios.urls')), # incluir las URLS de usuarios
+    path('carrito/', include('carrito.urls')), # incluir las URLS del carrito
 ]
