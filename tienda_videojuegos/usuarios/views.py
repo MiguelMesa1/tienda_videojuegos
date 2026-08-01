@@ -15,7 +15,9 @@ def registro_view(request): # Definimos la vista.
         if form.is_valid(): # Validar el formulario/ Django revisa que se cumplan las reglas del modelo
             usuario = form.save() # Guardar nuevo usuario si los datos son validos.
             login(request, usuario) # despues de registrar al usuario hace automaticamente login.
+            messages.success(request, "Registro completado correctamente.")
             return redirect('home') # redirecciona a la url home
+        messages.success(request, "Registro completado correctamente.")
     else: # hace un get
         form = RegistroForm() # carga el formulario vacio 
     return render( request,'usuarios/registro.html',{'form': form}) # devuelve la plantilla de registro
@@ -28,6 +30,7 @@ def login_view(request):
         if form.is_valid(): #Comprueba credenciales en la base de datos para ver si los datos coinciden
             usuario = form.get_user() # Obtiene el objeto usuario correspondiente
             login(request, usuario) # Registra el usuario en la sesión permitiendo que acceda a las vistas protegidas
+            messages.success(request, "Inicio de sesión correcto.")
             return redirect('home') # Redirige ala Url Home
         else:
             # Mostrar errores generales en consola para debug
@@ -41,8 +44,8 @@ def login_view(request):
 # Cerrar sesión
 def logout_view(request):
     logout(request) # Solicitud para cerrar sesión
+    messages.info(request, "Has cerrado sesión correctamente.")
     return redirect('login') #Redirigir a la página login
-
 
 @login_required
 def perfil_view(request):

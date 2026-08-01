@@ -61,6 +61,12 @@
                             >
                                 {% csrf_token %}
 
+                                <input
+                                    type="hidden"
+                                    name="next"
+                                    value="{{ request.get_full_path }}"
+                                >
+
                                  <button type="submit" class="game-card-cta">
                                     <span>Añadir al carrito</span>
 

@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from catalogo.models import Juego
 from .models import Carrito, ItemCarrito
+from django.utils.http import url_has_allowed_host_and_scheme
 from django.views.decorators.http import require_POST
 
 
@@ -22,21 +23,23 @@ def agregar_al_carrito(request, juego_id):
         juego=juego
     )
 
-    if creado:
-        messages.success(
-            request,
-            f"Producto '{juego.nombre}' añadido al carrito correctamente."
-        )
-    else:
+    if not creado:
         item.cantidad += 1
-        item.save(update_fields=["cantidad"])
+        messages.info(request, f"Se ha aumentado la cantidad de {juego.nombre} en el carrito.")
+    else:
+        messages.success(request, f"Producto '{juego.nombre}' añadido al carrito correctamente.")
+    item.save()
 
-        messages.info(
-            request,
-            f"Se ha aumentado la cantidad de {juego.nombre} en el carrito."
-        )
+    siguiente = request.POST.get("next")
 
-    return redirect("catalogo:detalle_juego", pk=juego_id)
+    if siguiente and url_has_allowed_host_and_scheme(
+        url=siguiente,
+        allowed_hosts={request.get_host()},
+        require_https=request.is_secure(),
+    ):
+        return redirect(siguiente)
+
+    return redirect("catalogo:lista_juegos")
 
 @login_required
 def eliminar_del_carrito(request, juego_id):
